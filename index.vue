@@ -126,8 +126,8 @@ export default {
       }
       var params = { page: this.page, limit: this.limit, ...this.tablefilter }
       this.listapi(params).then(res => {
-        this.total = res.data.count
-        this.tabledata = res.data.data
+        this.total = res.cnt
+        this.tabledata = res.list
         this.tableloading = false
         console.log('loadTableData', this.tabledata)
       })

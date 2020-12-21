@@ -1,7 +1,9 @@
 export default {
   methods: {
-    setDatableFilter (key, val, tableRefName = 'table') {
-      this.$set(this.$refs[tableRefName].tablefilter, key, val)
+    setDatableFilter (tablefilters, tableRefName = 'table') {
+      for (let key in tablefilters) {
+        this.$set(this.$refs[tableRefName].tablefilter, key, tablefilters[key])
+      }
       this.$refs[tableRefName].loadTableData(true)
     },
     refreshDatable (tableRefName = 'table') {
