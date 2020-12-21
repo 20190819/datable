@@ -60,48 +60,48 @@ const TableExtend = {
   props: {
     index: Number,
     row: Object,
-    render: Function,
+    render: Function
   },
-  render: function(h, context) {
+  render: function (h, context) {
     const params = {
       index: context.props.index,
-      row: context.props.row,
-    };
-    return context.props.render(h, params);
-  },
-};
+      row: context.props.row
+    }
+    return context.props.render(h, params)
+  }
+}
 export default {
-  name: "DATABLE",
+  name: 'DATABLE',
   props: {
     tablerefname: {
       type: String,
-      default: "tables",
+      default: 'tables'
     },
     tablesize: {
       type: String,
-      default: "small",
+      default: 'small'
     },
     columns: Array,
     listapi: Function,
     showpagenation: {
       type: Boolean,
-      default: true,
+      default: true
     },
     pagesizes: {
       type: Array,
       default: () => {
-        return [10, 20, 30, 50];
-      },
+        return [10, 20, 30, 50]
+      }
     },
     hascheckbox: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   components: {
-    TableExtend,
+    TableExtend
   },
-  data() {
+  data () {
     return {
       tableloading: false,
       tabledata: [],
@@ -109,47 +109,47 @@ export default {
       multipleSelection: [],
       total: 0,
       page: 1,
-      limit: 10,
-    };
+      limit: 10
+    }
   },
-  mounted() {
-    this.loadTableData();
+  mounted () {
+    this.loadTableData()
   },
   methods: {
-    loadTableData(restart = false) {
-      this.tableloading = true;
+    loadTableData (restart = false) {
+      this.tableloading = true
       if (this.showpagenation) {
         if (restart) {
-          this.page = 1;
-          this.limit = 10;
+          this.page = 1
+          this.limit = 10
         }
       }
-      var params = { page: this.page, limit: this.limit, ...this.tablefilter };
-      this.listapi(params).then((res) => {
-        this.total = res.data.count;
-        this.tabledata = res.data.data;
-        this.tableloading = false;
-        console.log("loadTableData", this.tabledata);
-      });
+      var params = { page: this.page, limit: this.limit, ...this.tablefilter }
+      this.listapi(params).then(res => {
+        this.total = res.data.count
+        this.tabledata = res.data.data
+        this.tableloading = false
+        console.log('loadTableData', this.tabledata)
+      })
     },
-    handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
-      this.limit = val;
-      this.loadTableData();
+    handleSizeChange (val) {
+      console.log(`每页 ${val} 条`)
+      this.limit = val
+      this.loadTableData()
     },
-    handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
-      this.page = val;
-      this.loadTableData();
+    handleCurrentChange (val) {
+      console.log(`当前页: ${val}`)
+      this.page = val
+      this.loadTableData()
     },
-    handleSelectionChange(val) {
-      this.multipleSelection = val;
+    handleSelectionChange (val) {
+      this.multipleSelection = val
     },
-    deleteRow(index) {
-      this.tabledata.splice(index, 1);
-    },
-  },
-};
+    deleteRow (index) {
+      this.tabledata.splice(index, 1)
+    }
+  }
+}
 </script>
 
 <style scoped>
